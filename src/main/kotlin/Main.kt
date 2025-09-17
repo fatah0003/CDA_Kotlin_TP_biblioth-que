@@ -1,6 +1,8 @@
 package org.example
 
 import org.example.enum.Genre
+import org.example.exception.DocumentDejaEmprunteException
+import org.example.exception.DocumentNonEmprunteException
 import org.example.model.Document
 import org.example.model.Livre
 import org.example.model.Magazine
@@ -25,9 +27,26 @@ fun main() {
 
     livre1.consulter()
     mag1.consulter()
-    livre2.emprunter()
-    livre2.emprunter()
+    try {
+        livre2.emprunter()
+    } catch (e: DocumentDejaEmprunteException) {
+        println(e.message)
+    }
 
-    livre1.rendre()
-    livre2.rendre()
+    try {
+        livre2.emprunter()
+    } catch (e: DocumentDejaEmprunteException) {
+        println(e.message)
+    }
+
+    try {
+        livre1.rendre()
+    } catch (e: DocumentNonEmprunteException) {
+        println(e.message)
+    }
+    try {
+        livre2.rendre()
+    } catch (e: DocumentNonEmprunteException) {
+        println(e.message)
+    }
 }
